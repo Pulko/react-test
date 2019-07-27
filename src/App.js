@@ -25,10 +25,12 @@ class App extends Component {
     caches.open("my-cache").then( 
       (cache) => {
         cache.match(this.state.url).then( 
-          (response) => response.json().then(
-            (result) => {
-              if (result) {
-                this.setState({data: result});
+            (response) => {
+              if (response) {
+                return response.json().then( 
+                  (result) => this.setState({data: result}
+                  )
+                )
               } else {
                 cache.add(this.state.url).then(
                   () => {
@@ -37,7 +39,6 @@ class App extends Component {
                 ) 
               }
             }
-          )
         )
       }
     )
